@@ -5,10 +5,25 @@ Code for the paper "MUST-CNN:	A	Multilayer	Shift-and-Stitch	Deep	Convolutional	A
 
 
 ## Requirements
-Code is written in Lua and requires [Torch] (http://torch.ch/). Running on the GPU via the cuda cunn library is strongly reccommended (use the -cuda parameter). To get cunn, use: ``luarocks install cunn``
+Code is written in Lua and requires [Torch] (http://torch.ch/). Running on the GPU via the cuda cunn library is strongly reccommended (use the -cuda parameter). To get cunn, use: 
+
+``luarocks install cunn``
 
 ## Data
 The data is split up into 3 directories: 4Protein, 28 Protein, and cb513. Each directory contains a "data" subdirectory and a "hash" subdirectory. The data subdirectory contains "aa1.dat" which is the raw protein sequence data, as well as each *tag.dat file which are the class labels for each separate class. The data subdir also contains the psi-blast files. The hash subdirectory contains the dictionary numbers for each of the amino acids and class labels.
 
+
+
 ## Running the code
-The code should be runnable with the default parameters by simply executing ``th main.lua``. See cmdlineargs.lua to pass in parameters.
+The data directories are included in this repository as tar files. Untar the data directory which you choose to use with the -dataset parameter (4Protein is the default dataset).
+
+``tar -xvf ./data/4Protein.tar.gz``
+
+The code should be runnable with the default parameters by simply executing: 
+
+``th main.lua``
+
+See cmdlineargs.lua to pass in parameters.
+
+
+
