@@ -23,7 +23,7 @@ The code should be runnable with the default parameters by simply executing:
 
 ``th main.lua``
 
-See cmdlineargs.lua to pass in parameters.
+See [cmdlineargs.lua] (https://github.com/DeepLearning4BioSeqText/Paper16-AAAI-MUST-CNN/blob/master/cmdlineargs.lua) to pass in parameters.
 
 
 
