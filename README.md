@@ -17,7 +17,7 @@ The data is split up into 3 directories: 4Protein, 28 Protein, and cb513. Each d
 ## Running the code
 The data directories are included in this repository as tar files. Untar the data directory which you choose to use with the -dataset parameter (4Protein is the default dataset).
 
-``tar -xvf ./data/4Protein.tar.gz``
+``tar -xvf ./data/4Protein.tar.gz -C ./data/``
 
 The code should be runnable with the default parameters by simply executing: 
 
