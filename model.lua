@@ -31,15 +31,15 @@ local function create_common_model(seq)
 
     opt.processed_dim = 0
 
-    for i=1,4 do if opt.AAEmbedSize[i] > 0 then
-        local aadict = file.read(path.join(opt.hashDir, string.format("aa%d.lst", i)))
-        local aaxsize = #(aadict:splitlines())
 
-        local wordlookup = nn.LookupTable(aaxsize, opt.AAEmbedSize[i])
-        prl:add(wordlookup)
+    local aadict = file.read(path.join(opt.hashDir, "aa1.lst"))
+    local aaxsize = #(aadict:splitlines())
 
-        opt.processed_dim = opt.processed_dim + opt.AAEmbedSize[i]
-    end end
+    local wordlookup = nn.LookupTable(aaxsize, opt.AAEmbedSize)
+    prl:add(wordlookup)
+
+    opt.processed_dim = opt.processed_dim + opt.AAEmbedSize
+
 
     for i=1,opt.PSINum do
         prl:add(nn.UpDim(nn.UpDim.END))

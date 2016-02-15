@@ -66,11 +66,10 @@ local function train(model, criterion, data, labels, params)
             for i = 1,#inputs do
                 -- estimate f
                 local output = model:forward(inputs[i])
-                print(inputs[i])
+
                 --clip extra output from shift and stitch
                 output = tablex.map(function(t) return t[{{1,targets[i][1]:size(1)},{1,t:size(2)}}] end, output)
 
-                print(output[1]:exp())
                 local err = criterion:forward(output, targets[i])
                 f = f + err
 

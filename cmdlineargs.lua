@@ -54,7 +54,7 @@ local parse = function(cmd)
     end
 
     opt.nhus = tablex.map(tonumber, opt.nhus:split(','))
-    opt.AAEmbedSize = tablex.map(tonumber, opt.AAEmbedSize:split(','))
+    opt.AAEmbedSize = tonumber(opt.AAEmbedSize)
     -- Fixed Parameters
     opt.PSINum = 20
 
@@ -78,9 +78,7 @@ local set = function()
     cmd:option('-kickstart', "", "Replace the last layers and finetune the model on the new tasks. Will fail if we can't find existing model")
     cmd:option('-size', 0, 'How many samples to use. 0 should load all samples.')
 
-    cmd:option('-AAEmbedSize', '15,0,0,0',
-        'Size of alphabet embeddings to use. Format is a,b,c,d, where ' ..
-        'a is the size of the unigram embedding, b is bigram, etc.' )
+    cmd:option('-AAEmbedSize', '15', 'Size of alphabet embeddings to use' )
 
     cmd:option('-model', 'conv', 'mlp | conv')
     cmd:option('-nonlinearity', 'relu', 'type of nonlinearity function to use: tanh | relu | prelu')

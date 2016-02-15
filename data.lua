@@ -17,7 +17,6 @@ require 'nn'
 local opt = require('cmdlineargs')
 
 assert(opt.task ~= "unknown", "Please input a task")
-assert(opt.AAEmbedSize[1] > 0, "Need to use at least a unigram model for AAEmbedSize")
 
 -- Returns a list of tensors for each line in the file
 local function loadData(name, maxLoad)
@@ -37,7 +36,7 @@ end
 
 local jt = nn.JoinTable(1)
 
-local function createDataset(size) 
+local function createDataset(size)
     utils.printf("Making dataset...\n")
     local dir = opt.dataDir
 
@@ -45,12 +44,12 @@ local function createDataset(size)
     local psidata = List.new()
 
     print("Making AA...")
-    for i=1,4 do if opt.AAEmbedSize[i] > 0 then 
-        aa[i] = loadData( path.join(dir, string.format("aa%d.dat",i)) , size) 
-    end end
+
+    aa[1] = loadData( path.join(dir, "aa1.dat"), size)
+
     print("Making PSI...")
-    for i=1,opt.PSINum do 
-        print("Making psi "..i) 
+    for i=1,opt.PSINum do
+        print("Making psi "..i)
         psidata[i] = loadData( path.join(dir, string.format("psi%d.dat.NR",i)) , size)
     end
 
@@ -65,7 +64,7 @@ local function createDataset(size)
         assert(labels[task]:size() == psidata[1]:size(),
             string.format("Length of outputs for task %s does not match length of inputs", task)
         )
-        assert(labels[task]:size() == aa[1]:size(), 
+        assert(labels[task]:size() == aa[1]:size(),
             string.format("Length of embedding indicies for task %s does not match length of inputs", task)
         )
     end
@@ -91,7 +90,7 @@ local function createDataset(size)
     function outputs:size() return data[1]:size() end
 
     local dataset = {
-        train={inputs={}, labels={}}, 
+        train={inputs={}, labels={}},
         valid={inputs={}, labels={}},
         test ={inputs={}, labels={}}
     }
