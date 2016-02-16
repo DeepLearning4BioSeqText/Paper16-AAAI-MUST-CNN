@@ -10,7 +10,7 @@ Code is written in Lua and requires [Torch] (http://torch.ch/). Running on the G
 ``luarocks install cunn``
 
 ## Data
-The data is split up into 3 directories: 4Protein, 28 Protein, and cb513. Each directory contains a "data" subdirectory and a "hash" subdirectory. The data subdirectory contains "aa1.dat" which is the raw protein sequence data, as well as each *tag.dat file which are the class labels for each separate class. The data subdir also contains the psi-blast files. The hash subdirectory contains the dictionary numbers for each of the amino acids and class labels.
+The data is split up into 2 directories: 4Protein, and cb513. Each directory contains a "data" subdirectory and a "hash" subdirectory. The data subdirectory contains "aa1.dat" which is the raw protein sequence data, as well as each *tag.dat file which are the class labels for each separate class. The data subdir also contains the psi-blast files. The hash subdirectory contains the dictionary numbers for each of the amino acids and class labels.
 
 
 
