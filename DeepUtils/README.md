@@ -1,9 +1,7 @@
 # DeepUtils
 A collection of utility packages that are project independent.
 
-Usage
-===
-Clone this into your project repository, and use the files by something akin to 
+###Usage
 
 ```
 require "DeepUtils/nn_extras"
@@ -59,9 +57,6 @@ Input: X_{i=1}^{N}
 Output: Y_i = mlp(X_i)
 ```
 
-###nn.Viterbi
-Implements the sentence-level log likelihood layer in NLP from Scratch http://arxiv.org/pdf/1103.0398.pdf
-
 ## ProFi
 
 Packaged lua profiler from https://gist.github.com/perky/2838755.
@@ -76,32 +71,3 @@ ProFi:stop()
 ProFi:writeReport('profile.log')
 ```
 
-##SLURM.lua
-
-SLURM.SLURMBatchRun takes in a function that takes n arguments, and n tables of arguments. The function is to
-output a slurm batch script to run, as a string. It passes every combination of the n tables of arguments to the
-function, and then runs it using sbatch.
-Here is an informative example on how to use this:
-
-```
-local slurm = require('DeepUtil/SLURM')
-
-local script = [[
-#!/bin/bash
-#SBATCH -p qdata
-#SBATCH -o protein28tasks.%s,%s.out
-
-/usr/cs/bin/th ./main.lua -task %s -AAEmbedSize %s -model %s -modelparams %s -nhus %s -nonlinearity %s -maxEpochs %d -dropout %s -indropout %s -dataset 28Protein -noprogressbar]]
-local task = "dssp-mixed.2d#stride-mixed.2d"
-local aa = "15,0,0,0"
-
-local function formattermlp (nhu, nonlinearity, dropout)
-    local model = "mlp"
-    local dp = dropout and ".5" or "0"
-    local idp = dropout and ".2" or "0"
-    return string.format(script, model, nhu, task, aa, model, "13", nhu, nonlinearity, 20, dp, idp)
-end
-print(formattermlp("128,128", "relu", true))
-
-slurm.SLURMBatchRun(formattermlp, {"128,128", "64,64", "64,64,64"}, {"tanh", "relu", "prelu"}, {true, false})
-```
