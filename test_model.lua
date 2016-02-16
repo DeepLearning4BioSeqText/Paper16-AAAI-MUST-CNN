@@ -1,5 +1,5 @@
 -- This script allows you to test pre-trained models
--- Place your testing data into the "dataset" table and
+-- Place your testing data into the "dataset" table
 
 require('cunn')
 require('nn')
