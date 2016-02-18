@@ -2,6 +2,8 @@
 
 Code for the paper "MUST-CNN:	A	Multilayer	Shift-and-Stitch	Deep	Convolutional	Architecture	for	Sequence-Based Protein	Structure	Prediction" (AAAI 2016)
 
+Zeming Lin, Jack Lanchantin, Yanjun Qi <br />
+University of Virginia
 
 
 ## Requirements
