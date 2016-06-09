@@ -33,5 +33,6 @@ e.g.,
 
 ``th main.lua -model mlp``
 
+``th main.lua -cuda``
 
 
