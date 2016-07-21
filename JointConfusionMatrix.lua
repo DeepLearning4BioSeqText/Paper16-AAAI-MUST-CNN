@@ -18,10 +18,10 @@ end
 function JointConfusionMatrix:add(output, targets)
     for task_id,task in ipairs(self.task_list) do
         if output[1]:dim() == 1 then
-            if targets[1]:size(1) == 1 then 
-                self.matricies[task]:add(output[task_id], targets[task_id][1])
+            if targets:size(1) == 1 then 
+                self.matricies[task]:add(output, targets)
             else
-                self.matricies[task]:batchAdd(output[task_id], targets[task_id])
+                self.matricies[task]:batchAdd(output, targets)
             end
         elseif output[1]:dim() == 2 then
             for i=1,targets[task_id]:size(1) do
