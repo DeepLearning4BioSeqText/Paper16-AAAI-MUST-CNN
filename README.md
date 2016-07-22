@@ -19,19 +19,20 @@ The data is split up into 2 directories: 4Protein, and cb513. Each directory con
 
 
 ## Running the code
+
 The data directories are included in this repository as tar files. Untar the data directory which you choose to use with the -dataset parameter (4Protein is the default dataset).
 
 ``tar -xvf ./data/4Protein.tar.gz -C ./data/``
 
-The code should be runnable with the default parameters by simply executing: 
+The code should be runnable with the default parameters by simply executing:
 
 ``th main.lua``
 
-See [cmdlineargs.lua] (https://github.com/DeepLearning4BioSeqText/Paper16-AAAI-MUST-CNN/blob/master/cmdlineargs.lua) to pass in parameters.
+Check the parameters in main.lua to run the program
 
-e.g., 
+e.g.,
 
-``th main.lua -model mlp``
+``th main.lua -task 'ssp.lab'``
 
 ``th main.lua -cuda``
 
