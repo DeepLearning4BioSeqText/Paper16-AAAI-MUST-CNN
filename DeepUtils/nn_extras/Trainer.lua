@@ -47,7 +47,6 @@ local function train(model, criterion, data, labels, params)
             local target = labels[shuffle[i]]
             table.insert(inputs, input)
             table.insert(targets, target)
-
         end
 
         -- create closure to evaluate f(X) and df/dX
@@ -69,27 +68,13 @@ local function train(model, criterion, data, labels, params)
                 local output = model:forward(inputs[i])
 
                 --clip extra output from shift and stitch
-                -- output = tablex.map(function(t) return t[{{1,targets[i][1]:size(1)},{1,t:size(2)}}] end, output)
-                -- print(inputs[i])
-                -- print(output)
+                output = tablex.map(function(t) return t[{{1,targets[i][1]:size(1)},{1,t:size(2)}}] end, output)
 
-                output = output[{ {1, targets[i]:size(1)},{} }] 
-                -- print(targets[i])
-                local err
-                if cuda then
-                    err = criterion:forward(output:cuda(), targets[i]:cuda())
-                else
-                    err = criterion:forward(output, targets[i])
-                end
+                local err = criterion:forward(output, targets[i])
                 f = f + err
 
                 -- estimate df/dW
-                local df_do
-                if cuda then
-                    df_do = criterion:backward(output, targets[i]:cuda())
-                else
-                    df_do = criterion:backward(output, targets[i])
-                end
+                local df_do = criterion:backward(output, targets[i])
                 model:backward(inputs[i], df_do)
 
                 trainopt.doAfterEveryExample(output, targets[i], err)
@@ -143,20 +128,11 @@ local function test(model, criterion, data, labels, params)
 
         -- test sample
         local pred = model:forward(input)
-        -- pred = tablex.map(function(t) return t[{{1,target[1]:size(1)},{1,t:size(2)}}] end, pred)
-        pred = pred [{ {1,target:size(1)}, {} }]
-        local err 
-        if cuda then
-            err = criterion:forward(pred, target:cuda())
-        else
-            err = criterion:forward(pred, target)
-        end
+        pred = tablex.map(function(t) return t[{{1,target[1]:size(1)},{1,t:size(2)}}] end, pred)
+        local err = criterion:forward(pred, target)
         f = f + err
-        if cuda then
-            testopt.doAfterEveryExample(pred, target:cuda())
-        else
-            testopt.doAfterEveryExample(pred, target)
-        end
+
+        testopt.doAfterEveryExample(pred, target)
     end
 
     return f/data:size(1)
